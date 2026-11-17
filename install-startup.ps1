@@ -12,7 +12,7 @@ if ($config.StartWithWindows -eq $false) {
     $shortcut.TargetPath = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
     $shortcut.Arguments = "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$(Join-Path $PSScriptRoot 'TabSwitch.ps1')`""
     $shortcut.WorkingDirectory = $PSScriptRoot
-    $shortcut.Description = 'Switch between the first two browser tabs on a timer.'
+    $shortcut.Description = 'Cycle through browser tabs on a timer.'
     $shortcut.Save()
     Start-Process -FilePath $shortcut.TargetPath -ArgumentList $shortcut.Arguments
     Write-Output "Startup shortcut created at $shortcutPath and TabSwitch started."

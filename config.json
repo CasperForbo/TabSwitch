@@ -8,5 +8,11 @@
     "brave",
     "opera",
     "vivaldi"
+  ],
+  "EdgeStartupWindows": [
+    [
+      "",
+      ""
+    ]
   ]
 }
