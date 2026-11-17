@@ -10,6 +10,9 @@ public static class TabSwitchWindow {
     public static extern bool SetForegroundWindow(IntPtr handle);
 
     [DllImport("user32.dll")]
+    public static extern bool IsIconic(IntPtr handle);
+
+    [DllImport("user32.dll")]
     public static extern bool ShowWindow(IntPtr handle, int command);
 }
 '@
@@ -39,7 +42,9 @@ function Invoke-TabSwitch {
             continue
         }
 
-        [void][TabSwitchWindow]::ShowWindow($browser.MainWindowHandle, 9)
+        if ([TabSwitchWindow]::IsIconic($browser.MainWindowHandle)) {
+            [void][TabSwitchWindow]::ShowWindow($browser.MainWindowHandle, 9)
+        }
         if ([TabSwitchWindow]::SetForegroundWindow($browser.MainWindowHandle)) {
             Start-Sleep -Milliseconds 150
             [System.Windows.Forms.SendKeys]::SendWait("^$script:nextTab")
