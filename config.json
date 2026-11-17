@@ -1,0 +1,12 @@
+{
+  "IntervalMinutes": 5,
+  "StartWithWindows": true,
+  "BrowserProcessNames": [
+    "msedge",
+    "chrome",
+    "firefox",
+    "brave",
+    "opera",
+    "vivaldi"
+  ]
+}
