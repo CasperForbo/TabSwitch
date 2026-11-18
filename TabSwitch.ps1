@@ -136,15 +136,18 @@ $exitItem.add_Click({
 })
 $script:trayIcon.ContextMenuStrip = $menu
 
-# Timer-based automation: run the tab switch routine at the configured interval.
+# Timer-based automation: switch once after 15 seconds, then use the configured interval.
 $script:timer = New-Object System.Windows.Forms.Timer
-$script:timer.Interval = [Math]::Max(1000, [int]($script:intervalMinutes * 60000))
-$script:timer.add_Tick({ Invoke-TabSwitch })
+$script:regularIntervalMilliseconds = [Math]::Max(1000, [int]($script:intervalMinutes * 60000))
+$script:timer.Interval = 15000
+$script:timer.add_Tick({
+    Invoke-TabSwitch
+    $script:timer.Interval = $script:regularIntervalMilliseconds
+})
 
 # Open any configured Edge startup windows before the tab-switch timer begins.
 Open-EdgeStartupWindows
 
-# Perform an immediate switch when the app starts, then keep the tray app alive.
-Invoke-TabSwitch
+# Start the timer so the first automatic switch happens after 15 seconds.
 $script:timer.Start()
 [System.Windows.Forms.Application]::Run((New-Object System.Windows.Forms.ApplicationContext))
